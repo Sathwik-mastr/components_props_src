@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import ConfigDrivenEngineFlow from "./landingPage.jsx";
+import Explanation from "../Explination.jsx";
 import { COMPONENTS, ALL_TYPES } from "./data";
 
 const TYPE_META = {
@@ -365,6 +366,20 @@ export default function App() {
             >
               Landing Page
             </button>
+            <button
+              className="px-3 py-1 rounded-full text-xs font-medium transition-all"
+              style={
+                view === "flow"
+                  ? { background: "#0d9488", color: "#fff", border: "1.5px solid #0d9488", fontWeight: 600 }
+                  : { background: "#fff", color: "#78716c", border: "1.5px solid #e7e5e4" }
+              }
+              onClick={() => {
+                setView("flow");
+                setSidebarOpen(false);
+              }}
+            >
+              Mechanism Flow
+            </button>
           </div>
 
           {/* Search */}
@@ -450,17 +465,19 @@ export default function App() {
           className="flex-1 overflow-y-auto px-7 py-6 max-[900px]:px-3 max-[900px]:py-4"
           style={{ scrollbarWidth: "thin", scrollbarColor: "#d6d3d1 transparent" }}
         >
-          {view === "landing" ? (
-            <ConfigDrivenEngineFlow />
-          ) : (
-            currentComponent && (
-              <ComponentPanel
-                component={currentComponent}
-                query={query}
-                typeFilter={typeFilter}
-              />
-            )
-          )}
+{view === "landing" ? (
+  <ConfigDrivenEngineFlow />
+) : view === "flow" ? (
+  <Explanation />
+) : (
+  currentComponent && (
+    <ComponentPanel
+      component={currentComponent}
+      query={query}
+      typeFilter={typeFilter}
+    />
+  )
+)}
         </div>
       </main>
     </div>
